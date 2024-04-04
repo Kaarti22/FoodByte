@@ -93,7 +93,7 @@ export default function CategoriesPage() {
                 setEditedCategory(c);
                 setCategoryName(c.name);
               }}
-              className="bg-gray-200 rounded-lg p-2 px-4 mb-3 flex gap-1 cursor-pointer text-black"
+              className="rounded-lg p-2 px-4 mb-3 flex gap-1 cursor-pointer text-black"
             >
               <span>{c.name}</span>
             </button>
