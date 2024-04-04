@@ -7,6 +7,7 @@ section.hero{
     grid-template-columns: .4fr .6fr;
 }
 
+select,
 input[type="email"],
 input[type="password"],
 input[type="tel"],
@@ -32,7 +33,7 @@ button, .button{
 }
 
 
-button[type="submit"], .submit{
+button[type="submit"], .submit, button.primary{
     @apply border-primary bg-primary text-white;
 }
 

@@ -27,7 +27,7 @@ export default function MenuItemsPage() {
   }
 
   return (
-    <section className="mt-8 max-w-md mx-auto">
+    <section className="mt-8 max-w-2xl mx-auto">
       <UserTabs isadmin={true}/>
       <div className="mt-8">
         <Link className='button' href='/menuitems/new'>

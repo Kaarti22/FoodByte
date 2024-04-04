@@ -34,8 +34,8 @@ export default function NewMenuItem() {
     setRedirectToItems(true);
   }
 
-  if(redirectToItems){
-    return redirect('/menuitems');
+  if (redirectToItems) {
+    return redirect("/menuitems");
   }
 
   if (loading) return "Loading user info...";
@@ -45,13 +45,13 @@ export default function NewMenuItem() {
   return (
     <section className="mt-8">
       <UserTabs isadmin={true} />
-      <div className="max-w-md mx-auto mt-8">
+      <div className="max-w-2xl mx-auto mt-8">
         <Link href="/menuitems" className="button">
           <Left />
           <span>Show All Menu Items</span>
         </Link>
       </div>
-      <MenuItemForm menuItem={null} onSubmit={handleFormSubmit}/>
+      <MenuItemForm menuItem={null} onSubmit={handleFormSubmit} />
     </section>
   );
 }

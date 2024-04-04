@@ -1,8 +1,9 @@
 "use client";
-import {UserTabs} from "@/components/layouts/UserTabs";
+import { UserTabs } from "@/components/layouts/UserTabs";
 import { useEffect, useState } from "react";
 import { useProfile } from "@/components/UseProfile";
 import toast from "react-hot-toast";
+import DeleteButton from "@/components/DeleteButton";
 
 export default function CategoriesPage() {
   const { loading: profileLoading, data: profileData } = useProfile();
@@ -41,11 +42,36 @@ export default function CategoriesPage() {
     });
 
     await toast.promise(creationPromise, {
-      loading: editedCategory ? 'Updating the category...' : "Creating your new Category...",
-      success: editedCategory ? 'Updated category successfully' : "Category created successfully",
+      loading: editedCategory
+        ? "Updating the category..."
+        : "Creating your new Category...",
+      success: editedCategory
+        ? "Updated category successfully"
+        : "Category created successfully",
       error: "Error Occurred!..",
     });
   }
+
+  const handleDeleteClick = async (_id) => {
+    const promise = new Promise(async (resolve, reject) => {
+      const response = await fetch("/api/Categories?_id=" + _id, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        resolve();
+      } else {
+        reject();
+      }
+    });
+
+    toast.promise(promise, {
+      loading: "Deleting...",
+      success: "Deleted...",
+      error: "Error",
+    });
+
+    fetchcategories();
+  };
 
   if (profileLoading) {
     return "Loading User Profile";
@@ -56,7 +82,7 @@ export default function CategoriesPage() {
   }
 
   return (
-    <section className="mt-8 max-w-md mx-auto">
+    <section className="mt-8 max-w-xl mx-auto">
       <UserTabs isadmin={true} />
       <form className="mt-8" onSubmit={handleCategorySubmit}>
         <div className="flex gap-2 items-end">
@@ -77,26 +103,44 @@ export default function CategoriesPage() {
               onChange={(ev) => setCategoryName(ev.target.value)}
             />
           </div>
-          <div className="pb-2">
+          <div className="pb-2 flex gap-2">
             <button className="border border-primary" type="submit">
               {editedCategory ? "Update" : "Create"}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setEditedCategory(null);
+                setCategoryName("");
+              }}
+            >
+              Cancel
             </button>
           </div>
         </div>
       </form>
       <div>
-        <h2 className="mt-8 text-gray-900 text-base">Edit Category:</h2>
+        <h2 className="mt-8 text-gray-900 text-base">Existing categories: </h2>
         {categories?.length > 0 &&
           categories.map((c) => (
-            <button
-              onClick={() => {
-                setEditedCategory(c);
-                setCategoryName(c.name);
-              }}
-              className="rounded-lg p-2 px-4 mb-3 flex gap-1 cursor-pointer text-black"
-            >
-              <span>{c.name}</span>
-            </button>
+            <div className="bg-gray-100 rounded-xl p-2 px-4 flex gap-1 mb-1 items-center">
+              <div className="grow">{c.name}</div>
+              <div className="flex gap-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEditedCategory(c);
+                    setCategoryName(c.name);
+                  }}
+                >
+                  Edit
+                </button>
+                <DeleteButton
+                  label={"Delete"}
+                  onDelete={() => handleDeleteClick(c._id)}
+                />
+              </div>
+            </div>
           ))}
       </div>
     </section>

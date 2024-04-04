@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/legacy/image";
 import MenuItemPriceProperties from "@/components/layouts/MenuItemPriceProperties";
 
@@ -10,11 +10,21 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
   const [basePrice, setBasePrice] = useState(menuItem?.basePrice || "");
   const [sizes, setSizes] = useState(menuItem?.sizes || []);
   const [extraIngredientPrices, setExtraIngredientPrices] = useState(menuItem?.extraIngredientPrices || []);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState(menuItem?.category || "");
+
+  useEffect(() => {
+    fetch('/api/Categories').then(res => {
+      res.json().then(categories => {
+        setCategories(categories);
+      });
+    })
+  }, []);
 
   return (
     <form
-      onSubmit={(ev) => onSubmit(ev, { name, description, basePrice, sizes, extraIngredientPrices })}
-      className="mt-8 max-w-md mx-auto"
+      onSubmit={(ev) => onSubmit(ev, { name, description, basePrice, sizes, extraIngredientPrices, category })}
+      className="mt-8 max-w-2xl mx-auto"
     >
       <div
         className="grid items-start gap-4"
@@ -42,6 +52,12 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
             value={description}
             onChange={(ev) => setDescription(ev.target.value)}
           />
+          <label>Category</label>
+          <select value={category} onChange={ev => setCategory(ev.target.value)}>
+            {categories?.length > 0 && categories.map(c => (
+              <option value={c._id}>{c.name}</option>
+            ))}
+          </select>
           <label>Base Price</label>
           <input
             type="text"

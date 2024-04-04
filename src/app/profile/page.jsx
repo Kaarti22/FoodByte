@@ -79,7 +79,7 @@ export default function ProfilePage() {
   return (
     <section className="mt-8">
       <UserTabs isadmin={isadmin}/>
-      <div className="max-w-md  mx-auto mt-8">
+      <div className="max-w-2xl mx-auto mt-8">
         <div className="flex gap-2">
           <div>
             <div className="bg-gray-200 p-4 rounded-3xl">
