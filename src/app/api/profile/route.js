@@ -2,33 +2,48 @@ import mongoose from "mongoose";
 import { authOptions } from "./../auth/[...nextauth]/route";
 import { User } from "../../../models/User";
 import { getServerSession } from "next-auth";
-import { UserInfo } from '../../../models/userinfo';
+import { UserInfo } from "../../../models/userinfo";
 
 export async function PUT(req) {
   mongoose.connect(process.env.MONGO_URL);
   const data = await req.json();
-  const {name, ...otherUserinfo} = data;
+  const { _id, name, ...otherUserinfo } = data;
 
+  let filter = {};
+  if (_id) {
+    filter = { _id };
+  } else {
+    const session = await getServerSession(authOptions);
+    const email = session.user.email;
+    filter = { email };
+  }
 
-  const session = await getServerSession(authOptions);
-  const email = session.user.email;
+  const user = await User.findOne(filter);
+  await User.updateOne(filter, { name });
 
-  await User.updateOne({ email }, name);
-
-  await UserInfo.findOneAndUpdate({ email }, otherUserinfo, {upsert: true} );
+  await UserInfo.findOneAndUpdate({email: user.email}, otherUserinfo, { upsert: true });
 
   return Response.json(true);
 }
 
-export async function GET() {
+export async function GET(req) {
   mongoose.connect(process.env.MONGO_URL);
-  const session = await getServerSession(authOptions);
-  const email = session?.user?.email;                                          
 
-  if (!email) return Response.json({});
+  const url = new URL(req.url);
+  const _id = url.searchParams.get("_id");
 
-  const user = await User.findOne({ email }).lean();
-  const userInfo = await UserInfo.findOne({ email }).lean();
+  let filterUser = {};
+  if (_id) {
+    filterUser = {_id};
+  } else {
+    const session = await getServerSession(authOptions);
+    const email = session?.user?.email;
+    if (!email) return Response.json({});
+    filterUser = {email};
+  }
 
-  return Response.json({...user,...userInfo});
+  const user = await User.findOne(filterUser).lean();
+  const userInfo = await UserInfo.findOne({email: user.email}).lean();
+
+  return Response.json({ ...user, ...userInfo });
 }

@@ -7,20 +7,31 @@ export const UserTabs = ({ isadmin }) => {
   // console.log(path);
   return (
     <div className="flex mx-auto gap-3 tabs justify-center">
-      <Link 
-        className={path === '/profile' ? 'active' : ''} 
-        href={"/profile"}
-      >
+      <Link className={path === "/profile" ? "active" : ""} href={"/profile"}>
         Profile
-        </Link>
+      </Link>
       {isadmin && (
         <>
-          <Link className={path === '/categories' ? 'active' : ''} href={'/categories'}>Categories</Link>
-          <Link className={path.includes('menuitems') ? 'active' : ''} href={'/menuitems'}>Menu Items</Link>
-          <Link className={path === '/users' ? 'active' : ''} href={'/users'}>Users</Link>
-          <Link className={path === '/orders' ? 'active' : ''} href={'/orders'}>Orders</Link>
+          <Link
+            className={path === "/categories" ? "active" : ""}
+            href={"/categories"}
+          >
+            Categories
+          </Link>
+          <Link
+            className={path.includes("menuitems") ? "active" : ""}
+            href={"/menuitems"}
+          >
+            Menu Items
+          </Link>
+          <Link className={path.includes('/users') ? "active" : ""} href={"/users"}>
+            Users
+          </Link>
+          <Link className={path === "/orders" ? "active" : ""} href={"/orders"}>
+            Orders
+          </Link>
         </>
       )}
     </div>
   );
-}
+};
