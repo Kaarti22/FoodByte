@@ -13,13 +13,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
         <main className="max-w-4xl mx-auto border p-4">
           <AppProvider>
+            <Toaster />
             <Header />
             {children}
-            <Toaster />
             <footer className="border-t p-8 text-center text-gray-500 mt-16">
               &copy; 2024 All rights reserved
             </footer>
