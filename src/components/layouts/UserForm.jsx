@@ -3,18 +3,27 @@
 import Image from "next/legacy/image";
 import { useState } from "react";
 import { useProfile } from "../UseProfile";
+import AddressInputs from "./AddressInputs";
 
 const Userform = ({ user, onSave }) => {
   const [userName, setUserName] = useState(user?.name || "");
   const [phoneno, setPhoneno] = useState(user?.phoneno || "");
   const [pincode, setPINcode] = useState(user?.pincode || "");
-  const [streetaddress, setStreetAddress] = useState(user?.streetAddress || "");
+  const [streetaddress, setStreetAddress] = useState(user?.streetaddress || "");
   const [city, setCity] = useState(user?.city || "");
   const [country, setCountry] = useState(user?.country || "");
 
   const [admin, setAdmin] = useState(user?.admin || false);
 
   const { data: logginInUserData } = useProfile();
+
+  const handleAddressChange = (propName, value) => {
+    if(propName === 'phoneno') setPhoneno(value);
+    if(propName === 'pincode') setPINcode(value);
+    if(propName === 'streetaddress') setStreetAddress(value);
+    if(propName === 'city') setCity(value);
+    if(propName === 'country') setCountry(value);
+  }
 
   return (
     <div className="flex gap-2">
@@ -31,7 +40,7 @@ const Userform = ({ user, onSave }) => {
       </div>
       <form
         className="grow"
-        onSubmit={(ev) =>
+        onSubmit={ev =>
           onSave(ev, {
             name: userName,
             phoneno,
@@ -57,47 +66,9 @@ const Userform = ({ user, onSave }) => {
           value={user?.email}
           placeholder={"Email"}
         />
-        <label>Phone Number</label>
-        <input
-          type="tel"
-          placeholder="Phone Number"
-          value={phoneno}
-          onChange={(ev) => setPhoneno(ev.target.value)}
-        />
-        <label>Street Address</label>
-        <input
-          type="text"
-          placeholder="Street Address"
-          value={streetaddress}
-          onChange={(ev) => setStreetAddress(ev.target.value)}
-        />
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label>PIN Code</label>
-            <input
-              type="text"
-              placeholder="PIN Code"
-              value={pincode}
-              onChange={(ev) => setPINcode(ev.target.value)}
-            />
-          </div>
-          <div>
-            <label>City</label>
-            <input
-              type="text"
-              placeholder="City"
-              value={city}
-              onChange={(ev) => setCity(ev.target.value)}
-            />
-          </div>
-        </div>
-        <label>Country</label>
-        <input
-          type="text"
-          placeholder="Country"
-          value={country}
-          onChange={(ev) => setCountry(ev.target.value)}
-        />
+        <AddressInputs addressProp={{
+          phoneno, streetaddress, pincode, city, country
+        }} setAddressProp={handleAddressChange}/>
         {logginInUserData.admin && (
           <div>
             <label

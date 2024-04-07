@@ -1,8 +1,22 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
 import { createContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export const CartContext = createContext({});
+
+export const CartProductPrice = (cartProduct) => {
+  let price = cartProduct.basePrice;
+  if(cartProduct.size){
+    price += cartProduct.size.price;
+  }
+  if(cartProduct.extras?.length > 0){
+    for(const extra of cartProduct.extras){
+      price += extra.price;
+    }
+  }
+  return price;
+}
 
 export function AppProvider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
@@ -26,6 +40,7 @@ export function AppProvider({ children }) {
       saveCartProdToLocalStorage(newProducts);
       return newProducts;
     });
+    toast.success('Product removed');
   };
 
   const saveCartProdToLocalStorage = (cartProducts) => {

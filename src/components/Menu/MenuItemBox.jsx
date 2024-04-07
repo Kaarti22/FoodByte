@@ -1,6 +1,10 @@
+import AddToCartButton from "@/components/Menu/AddToCartButton";
+
 const MenuItemBox = ({onAddToCart, ...item}) => {
 
     const {name, description, basePrice, sizes, extraIngredientPrices} = item;
+
+    const hasSizesOrExtras = sizes?.length > 0 || extraIngredientPrices?.length > 0; 
 
     return (
         <div
@@ -16,17 +20,7 @@ const MenuItemBox = ({onAddToCart, ...item}) => {
         </div>
         <h4 className="font-semibold text-xl my-3">{name}</h4>
         <p className="text-gray-500 text-sm line-clamp-3">{description}</p>
-        <button
-          type="button"
-          onClick={onAddToCart}
-          className="mt-4 bg-primary text-white rounded-full px-4 py-2"
-        >
-          {(sizes?.length > 0 || extraIngredientPrices?.length > 0) ? (
-            <span>From ${basePrice}</span>
-          ) : (
-            <span>Add to cart ${basePrice}</span>
-          )}
-        </button>
+        <AddToCartButton hasSizesOrExtras={hasSizesOrExtras} onClick={onAddToCart} basePrice={basePrice}/>
       </div>
     )
 }
