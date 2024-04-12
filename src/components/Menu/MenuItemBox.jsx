@@ -13,9 +13,9 @@ const MenuItemBox = ({onAddToCart, ...item}) => {
       >
         <div className="text-center">
           <img
-            src="/pizza.png"
+            src="/menuimage.png"
             className="max-h-[180px] block mx-auto"
-            alt="Pizza"
+            alt="MenuItem Image"
           />
         </div>
         <h4 className="font-semibold text-xl my-3">{name}</h4>

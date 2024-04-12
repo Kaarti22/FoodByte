@@ -20,10 +20,7 @@ export default function Header() {
     <header className="flex items-center justify-between">
       <nav className="flex items-center gap-2 text-gray-500 font-semibold">
         <Link className="text-primary font-semibold text-2xl" href={"/"}>
-          ST PIZZA
-        </Link>
-        <Link href={"/"} className="hover:bg-slate-200 rounded-full py-2 px-4">
-          Home
+          FOOD BYTE
         </Link>
         <Link
           href={"/menu"}

@@ -29,15 +29,28 @@ const CartPage = () => {
     setAddress(prev => ({...prev, [propName]:value}))
   }
 
-  let total = 0;
+  async function proceedToCheckout(ev){
+    const response = await fetch('/api/checkout', {
+      method : "POST",
+      headers : {'Content-Type':'application/json'},
+      body : JSON.stringify({
+        address,
+        cartProducts,
+      }),
+    });
+    const link = await response.json();
+    window.location = link;
+  }
+
+  let subtotal = 0;
   for (const p of cartProducts) {
-    total += CartProductPrice(p);
+    subtotal += CartProductPrice(p);
   }
 
   return (
     <section className="mt-8">
       <div className="text-center">
-        <SectionHeaders mainHeader={"Cart"} />
+        <SectionHeaders mainHeader={"Cart"} subHeader={"Order within seconds"} />
       </div>
       <div className="mt-8 grid grid-cols-2 gap-8">
         <div>
@@ -47,7 +60,7 @@ const CartPage = () => {
               <div className="flex gap-4 border-b py-4 items-center">
                 <div className="w-24">
                   <Image
-                    src={"/pizza.png"}
+                    src={"/menuimage.png"}
                     alt="Product image"
                     width={240}
                     height={240}
@@ -83,19 +96,27 @@ const CartPage = () => {
                 </button>
               </div>
             ))}
-          <div className="py-2 text-right pr-16">
-            <span className="text-gray-500">Subtotal:</span>
-            <span className="text-lg font-semibold pl-2">${total}</span>
+          <div className="py-2 pr-16 flex justify-end items-center">
+            <div className="text-gray-500">
+              Subtotal:<br />
+              Delivery:<br />
+              Total:
+              </div>
+            <div className="text-lg font-semibold pl-2 text-right">
+              ${subtotal}<br />
+              $5<br />
+              ${subtotal + 5}
+              </div>
           </div>
         </div>
-        <div className="bg-gray-100 p-4 rounded-lg">
-          <h2>Checkout</h2>
-          <form>
+        <div className="bg-gray-100 p-4 rounded-lg flex flex-col items-center">
+          <h2 className="text-blue-600 font-semibold text-lg">Checkout</h2>
+          <form onSubmit={proceedToCheckout}>
             <AddressInputs
               addressProp={address}
               setAddressProp={handleAddressChange}
             />
-            <button type="submit">Pay ${total}</button>
+            <button type="submit">Pay ${subtotal+5}</button>
           </form>
         </div>
       </div>

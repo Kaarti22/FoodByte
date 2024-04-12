@@ -70,9 +70,9 @@ export default function MenuItem(menuItem) {
               style={{ maxHeight: "calc(100vh - 100px)" }}
             >
               <Image
-                src={"/pizza.png"}
+                src={"/menuimage.png"}
                 alt="name"
-                width={300}
+                width={200}
                 height={200}
                 className="mx-auto"
               />
@@ -123,7 +123,7 @@ export default function MenuItem(menuItem) {
 
               <div className="flying-button-parent">
                 <FlyingButton
-                  src="/pizza.png"
+                  src="/menuimage.png"
                   targetTop={"5%"}
                   targetLeft={"77%"}
                 >

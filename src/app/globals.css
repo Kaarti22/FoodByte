@@ -17,7 +17,7 @@ input[type="text"]{
 }
 
 label {
-    @apply text-gray-800 font-semibold leading-tight text-sm;
+    @apply text-blue-600 font-semibold leading-tight text-sm;
 }
 
 input[type="email"]:disabled,
@@ -28,8 +28,8 @@ input[type="text"]:disabled{
 }
 
 button, .button{
-    @apply flex w-full text-gray-700 justify-center gap-2 font-semibold;
-    @apply border border-gray-400 rounded-xl px-6 py-2;
+    @apply flex w-full text-blue-600 justify-center gap-2 font-semibold;
+    @apply border border-blue-400 rounded-xl px-6 py-2;
 }
 
 
@@ -38,7 +38,7 @@ button[type="submit"], .submit, button.primary{
 }
 
 button[type="submit"]:disabled, .submit:disabled{
-    @apply cursor-not-allowed bg-red-400;
+    @apply cursor-not-allowed bg-blue-500;
 }
 
 div.tabs > * {

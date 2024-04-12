@@ -28,10 +28,10 @@ const Userform = ({ user, onSave }) => {
   return (
     <div className="flex gap-2">
       <div>
-        <div className="bg-gray-200 p-4 rounded-3xl">
+        <div className="bg-gray-200 rounded-full">
           <Image
-            src={"/Avatar.jpg"}
-            width={128}
+            src={"/profilepic.png"}
+            width={130}
             height={128}
             alt="avatar"
             className="mx-auto rounded-full "
@@ -78,7 +78,7 @@ const Userform = ({ user, onSave }) => {
               <input
                 id="adminCb"
                 type="checkbox"
-                className=""
+                className="text-blue-600"
                 value={"1"}
                 checked={admin}
                 onClick={(ev) => setAdmin(ev.target.checked)}

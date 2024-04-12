@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { useProfile } from "@/components/UseProfile";
 import toast from "react-hot-toast";
 import DeleteButton from "@/components/DeleteButton";
+import { useRouter } from "next/navigation";
 
 export default function CategoriesPage() {
   const { loading: profileLoading, data: profileData } = useProfile();
   const [categories, setCategories] = useState([]);
   const [categoryname, setCategoryName] = useState("");
   const [editedCategory, setEditedCategory] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     fetchcategories();
@@ -70,6 +72,7 @@ export default function CategoriesPage() {
       error: "Error",
     });
 
+    router.refresh();
     fetchcategories();
   };
 
@@ -120,28 +123,34 @@ export default function CategoriesPage() {
         </div>
       </form>
       <div>
-        <h2 className="mt-8 text-gray-900 text-base">Existing categories: </h2>
+        <h2 className="mt-8 text-blue-600 text-lg font-semibold">
+          Existing categories:{" "}
+        </h2>
         {categories?.length > 0 &&
-          categories.map((c) => (
-            <div className="bg-gray-100 rounded-xl p-2 px-4 flex gap-1 mb-1 items-center">
-              <div className="grow">{c.name}</div>
-              <div className="flex gap-1">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditedCategory(c);
-                    setCategoryName(c.name);
-                  }}
-                >
-                  Edit
-                </button>
-                <DeleteButton
-                  label={"Delete"}
-                  onDelete={() => handleDeleteClick(c._id)}
-                />
-              </div>
-            </div>
-          ))}
+          categories.map((c) => {
+            if (c.name !== "Select Any....") {
+              return (
+                <div className="bg-gray-100 rounded-xl p-2 px-4 flex gap-1 mb-1 items-center">
+                  <div className="grow">{c.name}</div>
+                  <div className="flex gap-1">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditedCategory(c);
+                        setCategoryName(c.name);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <DeleteButton
+                      label={"Delete"}
+                      onDelete={() => handleDeleteClick(c._id)}
+                    />
+                  </div>
+                </div>
+              );
+            }
+          })}
       </div>
     </section>
   );

@@ -9,24 +9,27 @@ export default function Home() {
       <Hero />
       <HomeMenu />
       <section className="text-center my-16" id="about">
-        <SectionHeaders subHeader={"Our Story"} mainHeader={"About Us"} />
+        <SectionHeaders  mainHeader={"About Us"} subHeader={"Our Story"}/>
         <div className="max-w-md mx-auto mt-4 flex flex-col gap-4 text-gray-500">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-            perferendis veritatis dolorum cum nemo assumenda non necessitatibus
-            fugiat repellendus minima. Vitae eum quia illo accusantium voluptas
-            mollitia qui aut, atque praesentium aliquid vel, nobis, dolorem
-            alias. Consequuntur blanditiis fugiat perferendis?
+            Welcome to FOOD BYTE, where culinary passion meets technological
+            innovation! As fervent foodies ourselves, we embarked on a mission
+            to revolutionize the dining experience by bringing the finest
+            cuisines from local gems to global flavors right to your fingertips.
           </p>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi ut,
-            illum, nam dolore iure harum error laboriosam hic temporibus
-            incidunt in sunt reiciendis nostrum, excepturi neque. A nostrum
-            quasi quibusdam. Magni, qui consequatur. Sapiente, blanditiis!
+            Our journey began with a simple idea: to connect hungry hearts with
+            a diverse array of delectable dishes, curated with care and served
+            with convenience. Join us in savoring the flavors of possibility,
+            one order at a time.
           </p>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui odit
-            quos saepe cupiditate vero quas amet nisi sapiente fugit numquam.
+            With a commitment to excellence and a dedication to customer
+            satisfaction, we strive to exceed your expectations with every bite.
+            Our platform is more than just a place to order food; it's a
+            culinary destination where you can explore new tastes, support local
+            businesses, and indulge in culinary adventures from the comfort of
+            your home.
           </p>
         </div>
       </section>

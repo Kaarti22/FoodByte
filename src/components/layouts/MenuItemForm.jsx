@@ -32,7 +32,7 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
       >
         <div>
           <Image
-            src={"/pizza.png"}
+            src={"/menuimage.png"}
             width={128}
             height={128}
             alt="avatar"
