@@ -13,10 +13,6 @@ const Userform = ({ user, onSave }) => {
   const [city, setCity] = useState(user?.city || "");
   const [country, setCountry] = useState(user?.country || "");
 
-  const [admin, setAdmin] = useState(user?.admin || false);
-
-  const { data: logginInUserData } = useProfile();
-
   const handleAddressChange = (propName, value) => {
     if(propName === 'phoneno') setPhoneno(value);
     if(propName === 'pincode') setPINcode(value);
@@ -52,10 +48,10 @@ const Userform = ({ user, onSave }) => {
           })
         }
       >
-        <label>First And Last Name</label>
+        <label>Full Name</label>
         <input
           type="text"
-          placeholder="First and last Name"
+          placeholder="Enter your name"
           value={userName}
           onChange={(ev) => setUserName(ev.target.value)}
         />
@@ -69,25 +65,7 @@ const Userform = ({ user, onSave }) => {
         <AddressInputs addressProp={{
           phoneno, streetaddress, pincode, city, country
         }} setAddressProp={handleAddressChange}/>
-        {logginInUserData.admin && (
-          <div>
-            <label
-              className="p-2 inline-flex items-center gap-2 mb-2"
-              htmlFor="adminCb"
-            >
-              <input
-                id="adminCb"
-                type="checkbox"
-                className="text-blue-600"
-                value={"1"}
-                checked={admin}
-                onClick={(ev) => setAdmin(ev.target.checked)}
-              />
-              <span>Admin</span>
-            </label>
-          </div>
-        )}
-        <button type="submit" className="hover:bg-red-400 rounded-full">
+        <button type="submit" className="hover:bg-blue-400 rounded-full">
           Save
         </button>
       </form>

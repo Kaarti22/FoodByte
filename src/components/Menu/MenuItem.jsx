@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../AppContext";
-import toast from "react-hot-toast";
 import MenuItemBox from "@/components/Menu/MenuItemBox";
 import Image from "next/legacy/image";
 import FlyingButton from "react-flying-item";
@@ -27,9 +26,6 @@ export default function MenuItem(menuItem) {
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
       setShowPopup(false);
-      // toast.success("Added to cart", {
-      //   position: 'top-right',
-      // });
     }
   };
 
@@ -44,7 +40,7 @@ export default function MenuItem(menuItem) {
     }
   };
 
-  let selectedPrice = basePrice;
+  let selectedPrice = 0;
   if (selectSize) {
     selectedPrice += selectSize.price;
   }
@@ -69,13 +65,15 @@ export default function MenuItem(menuItem) {
               className="overflow-y-scroll p-2"
               style={{ maxHeight: "calc(100vh - 100px)" }}
             >
-              <Image
+              <div className="flex justify-center items-center">              
+                <Image
                 src={"/menuimage.png"}
                 alt="name"
                 width={200}
                 height={200}
-                className="mx-auto"
+                className="mx-auto ml-10"
               />
+              </div>
               <h2 className="text-lg font-bold text-center mb-2">{name}</h2>
               <p className="text-center text-gray-500 text-sm mb-2">
                 {description}
@@ -94,7 +92,7 @@ export default function MenuItem(menuItem) {
                         onClick={() => setSelectSize(size)}
                         checked={selectSize?.name === size.name}
                       />
-                      {size.name} ${basePrice + size.price}
+                      {size.name} ₹{size.price}
                     </label>
                   ))}
                 </div>
@@ -115,7 +113,7 @@ export default function MenuItem(menuItem) {
                           .map((e) => e._id)
                           .includes(extraThing._id)}
                       />
-                      {extraThing.name} +${extraThing.price}
+                      {extraThing.name} +₹{extraThing.price}
                     </label>
                   ))}
                 </div>
@@ -131,7 +129,7 @@ export default function MenuItem(menuItem) {
                     className="primary sticky bottom-2"
                     onClick={handleAddToCart}
                   >
-                    Add to cart ${selectedPrice}
+                    Add to cart ₹{selectedPrice}
                   </div>
                 </FlyingButton>
               </div>

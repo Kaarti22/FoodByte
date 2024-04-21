@@ -1,7 +1,7 @@
 "use client";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../AppContext";
 import ShoppingCart from "@/components/Icons/ShoppingCart";
 
@@ -13,6 +13,20 @@ export default function Header() {
   if (userName && userName.includes(" ")) {
     userName = userName.split(" ")[0];
   }
+
+  const [user, setUser] = useState(null);
+  const [isadmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetch("/api/profile").then((response) => {
+        response.json().then((data) => {
+          setUser(data);
+          setIsAdmin(data.admin);
+        });
+      });
+    }
+  }, [session, status]);
 
   const { cartProducts } = useContext(CartContext);
 
@@ -42,6 +56,14 @@ export default function Header() {
         </Link>
       </nav>
       <nav className="flex items-center gap-4 text-gray-500 font-semibold">
+        {isadmin && (
+          <Link
+            href={"/dashboard"}
+            className="hover:bg-slate-200 rounded-full py-2 px-4"
+          >
+            Dashboard
+          </Link>
+        )}
         {status === "authenticated" && (
           <main className="flex gap-2 items-center">
             <Link
@@ -52,7 +74,7 @@ export default function Header() {
             </Link>
             <button
               onClick={() => signOut()}
-              className="bg-primary rounded-full text-white px-8 py-2 hover:bg-red-400"
+              className="bg-primary rounded-full text-white px-8 py-2 hover:bg-blue-400"
             >
               Logout
             </button>
@@ -68,15 +90,17 @@ export default function Header() {
             </Link>
             <Link
               href={"/register"}
-              className="bg-primary rounded-full text-white px-8 py-2 hover:bg-red-400"
+              className="bg-primary rounded-full text-white px-8 py-2 hover:bg-blue-400"
             >
               Register
             </Link>
           </main>
         )}
         <Link href={"/cart"} className="relative">
-          <ShoppingCart/>
-          <span className="absolute -top-2 -right-4 bg-primary text-white text-xs p-1 rounded-full leading-3">{cartProducts.length}</span>
+          <ShoppingCart />
+          <span className="absolute -top-2 -right-4 bg-primary text-white text-xs p-1 rounded-full leading-3">
+            {cartProducts.length}
+          </span>
         </Link>
       </nav>
     </header>

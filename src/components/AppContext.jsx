@@ -8,7 +8,7 @@ export const CartContext = createContext({});
 export const CartProductPrice = (cartProduct) => {
   let price = cartProduct.basePrice;
   if(cartProduct.size){
-    price += cartProduct.size.price;
+    price = cartProduct.size.price;
   }
   if(cartProduct.extras?.length > 0){
     for(const extra of cartProduct.extras){

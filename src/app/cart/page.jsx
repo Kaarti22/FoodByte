@@ -78,14 +78,14 @@ const CartPage = () => {
                       Extras:
                       {product.extras.map((extra) => (
                         <div>
-                          {extra.name} ${extra.price}
+                          {extra.name} ₹{extra.price}
                         </div>
                       ))}
                     </div>
                   )}
                 </div>
                 <div className="text-lg font-semibold">
-                  ${CartProductPrice(product)}
+                  ₹{CartProductPrice(product)}
                 </div>
                 <button
                   type="button"
@@ -103,9 +103,9 @@ const CartPage = () => {
               Total:
               </div>
             <div className="text-lg font-semibold pl-2 text-right">
-              ${subtotal}<br />
-              $5<br />
-              ${subtotal + 5}
+              ₹{subtotal}<br />
+              ₹5<br />
+              ₹{subtotal + 5}
               </div>
           </div>
         </div>
@@ -116,7 +116,7 @@ const CartPage = () => {
               addressProp={address}
               setAddressProp={handleAddressChange}
             />
-            <button type="submit">Pay ${subtotal+5}</button>
+            <button type="submit">Pay ₹{subtotal+5}</button>
           </form>
         </div>
       </div>

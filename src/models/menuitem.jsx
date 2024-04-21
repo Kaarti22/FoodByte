@@ -12,6 +12,7 @@ const MenuItemSchema = new Schema({
     basePrice: {type: Number},
     sizes: {type: [ExtraPriceSchema]},
     extraIngredientPrices: {type: [ExtraPriceSchema]},
+    imageURL: {type: String},
 }, {timestamps: true});
 
 export const MenuItem = models?.MenuItem || model('MenuItem', MenuItemSchema);

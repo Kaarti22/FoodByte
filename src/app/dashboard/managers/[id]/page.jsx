@@ -2,23 +2,23 @@
 
 import toast from "react-hot-toast";
 import Userform from "@/components/layouts/UserForm";
-import { UserTabs } from "@/components/layouts/UserTabs";
 import { useProfile } from "@/components/UseProfile";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import DashboardTabs from "@/components/layouts/DashboardTabs";
 
 export default function EditUserPage() {
   const { loading, data } = useProfile();
   const [user, setUser] = useState(null);
   const {id} = useParams();
 
-    useEffect(() => {
-        fetch('/api/profile?_id' + id).then(res => {
-            res.json().then(user => {
-                setUser(user);
-            })
+  useEffect(() => {
+      fetch('/api/profile?_id=' + id).then(res => {
+        res.json().then(user => {
+          setUser(user);
         })
-    }, []);
+      })
+  }, []);
 
   if (loading) {
     return "Loading user profile";
@@ -51,7 +51,7 @@ export default function EditUserPage() {
   
   return (
     <section className="mt-8 mx-auto max-w-2xl">
-      <UserTabs isadmin={true} />
+      <DashboardTabs/>
       <div className="mt-8">
         <Userform user={user} onSave={handleSaveButtonClick}/>
       </div>

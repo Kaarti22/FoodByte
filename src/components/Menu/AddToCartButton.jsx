@@ -5,7 +5,7 @@ const AddToCartButton = ({ hasSizesOrExtras, onClick, basePrice }) => {
     return (
       <div className="flying-button-parent mt-4">
         <FlyingButton targetTop={"5%"} targetLeft={"77%"} src="/menuimage.png">
-          <div onClick={onClick}>Add to cart ${basePrice}</div>
+          <div onClick={onClick}>Add to cart ₹{basePrice}</div>
         </FlyingButton>
       </div>
     );
@@ -16,7 +16,7 @@ const AddToCartButton = ({ hasSizesOrExtras, onClick, basePrice }) => {
       onClick={onClick}
       className="mt-4 bg-primary text-white rounded-full px-4 py-2"
     >
-      <span>Add to Cart (From ${basePrice})</span>
+      <span>Add to Cart (From ₹{basePrice})</span>
     </button>
   );
 };

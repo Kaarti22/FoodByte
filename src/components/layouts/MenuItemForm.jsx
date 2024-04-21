@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/legacy/image";
 import MenuItemPriceProperties from "@/components/layouts/MenuItemPriceProperties";
+// import ImageUpload from "@/components/layouts/ImageUpload";
 
 export default function MenuItemForm({ onSubmit, menuItem }) {
   const [name, setName] = useState(menuItem?.name || "");
@@ -12,6 +13,7 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
   const [extraIngredientPrices, setExtraIngredientPrices] = useState(menuItem?.extraIngredientPrices || []);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(menuItem?.category || "");
+  const [imageURL, setImageURL] = useState(menuItem?.imageURL || "");
 
   useEffect(() => {
     fetch('/api/Categories').then(res => {
@@ -38,6 +40,11 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
             alt="avatar"
             className="mx-auto rounded-full "
           />
+          {/* <ImageUpload 
+            value={imageURL}
+            onChange={(url) => setImageURL(url)}
+            onRemove={() => setImageURL("")}
+          /> */}
         </div>
         <div className="grow">
           <label>Menu Item Name</label>
@@ -82,3 +89,14 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
     </form>
   );
 }
+
+// const MenuItemForm = ({ onSubmit, menuItem }) => {
+//   return (
+//     <div>
+//       <h1>Image Upload</h1>
+//       <ImageUpload/>
+//     </div>
+//   )
+// };
+
+// export default MenuItemForm;

@@ -53,7 +53,7 @@ export default function RegisterPage(){
                 <input type="password" placeholder="password" value={password}
                     disabled={creatingUser}
                     onChange={ev => setPassword(ev.target.value)}/>
-                <button type="submit" disabled={creatingUser} className="hover:bg-red-400">
+                <button type="submit" disabled={creatingUser} className="hover:bg-blue-400">
                     Register
                 </button>
                 

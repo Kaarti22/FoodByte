@@ -3,8 +3,8 @@ import { UserTabs } from "@/components/layouts/UserTabs";
 import { useEffect, useState } from "react";
 import { useProfile } from "@/components/UseProfile";
 import toast from "react-hot-toast";
-import DeleteButton from "@/components/DeleteButton";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function CategoriesPage() {
   const { loading: profileLoading, data: profileData } = useProfile();
@@ -54,28 +54,6 @@ export default function CategoriesPage() {
     });
   }
 
-  const handleDeleteClick = async (_id) => {
-    const promise = new Promise(async (resolve, reject) => {
-      const response = await fetch("/api/Categories?_id=" + _id, {
-        method: "DELETE",
-      });
-      if (response.ok) {
-        resolve();
-      } else {
-        reject();
-      }
-    });
-
-    toast.promise(promise, {
-      loading: "Deleting...",
-      success: "Deleted...",
-      error: "Error",
-    });
-
-    router.refresh();
-    fetchcategories();
-  };
-
   if (profileLoading) {
     return "Loading User Profile";
   }
@@ -86,7 +64,7 @@ export default function CategoriesPage() {
 
   return (
     <section className="mt-8 max-w-xl mx-auto">
-      <UserTabs isadmin={true} />
+      <UserTabs isadmin={true} isowner={true} />
       <form className="mt-8" onSubmit={handleCategorySubmit}>
         <div className="flex gap-2 items-end">
           <div className="grow">
@@ -127,25 +105,15 @@ export default function CategoriesPage() {
           Existing categories:{" "}
         </h2>
         {categories?.length > 0 &&
-          categories.map((c) => {
+          categories.map((c, idx) => {
             if (c.name !== "Select Any....") {
               return (
                 <div className="bg-gray-100 rounded-xl p-2 px-4 flex gap-1 mb-1 items-center">
                   <div className="grow">{c.name}</div>
                   <div className="flex gap-1">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEditedCategory(c);
-                        setCategoryName(c.name);
-                      }}
-                    >
-                      Edit
+                    <button type="button">
+                      <Link href={"/categories/" + c._id}>Browse</Link>
                     </button>
-                    <DeleteButton
-                      label={"Delete"}
-                      onDelete={() => handleDeleteClick(c._id)}
-                    />
                   </div>
                 </div>
               );

@@ -13,6 +13,7 @@ export default function ProfilePage() {
   const session = useSession();
   const [user, setUser] = useState(null);
   const [isadmin, setIsAdmin] = useState(false);
+  const [isowner, setIsOwner] = useState(false);
   const [profileFetched, setProfileFetched] = useState(false);
   const { status } = session;
 
@@ -24,6 +25,7 @@ export default function ProfilePage() {
       response.json().then((data) => {
         setUser(data);
         setIsAdmin(data.admin);
+        setIsOwner(data.owner);
         setProfileFetched(true);
       });
     });
@@ -31,7 +33,7 @@ export default function ProfilePage() {
   }, [session, status]);
 
 
-  async function hadleProfileInfoUpdated(ev, data) {
+  async function handleProfileInfoUpdated(ev, data) {
     ev.preventDefault();
     const savingPromise = new Promise(async (resolve, reject) => {
       const response = await fetch("/api/profile", {
@@ -61,9 +63,9 @@ export default function ProfilePage() {
 
   return (
     <section className="mt-8">
-      <UserTabs isadmin={isadmin}/>
+      <UserTabs isadmin={isadmin} isowner={isowner}/>
       <div className="max-w-2xl mx-auto mt-8">
-        <UserForm user={user} onSave={hadleProfileInfoUpdated}/>
+        <UserForm user={user} onSave={handleProfileInfoUpdated}/>
       </div>
     </section>
   );

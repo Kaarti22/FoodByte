@@ -46,7 +46,7 @@ div.tabs > * {
 }
 
 div.tabs > *.active{
-    @apply bg-primary text-white;
+    @apply bg-primary text-white hover:bg-blue-400;
 }
 
 .flying-button-parent button {

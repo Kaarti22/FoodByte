@@ -29,7 +29,7 @@ export default function LoginPage() {
             <input type="password" name="password" placeholder="password" value={password}
                 disabled={loginInProgress}
                 onChange={ev => setPassword(ev.target.value)}/>
-            <button disabled={loginInProgress} type="submit" className="hover:bg-red-400">Login</button>
+            <button disabled={loginInProgress} type="submit" className="hover:bg-blue-400">Login</button>
             <div className="my-4 text-center text-gray-500">
                     Or Login with provider
             </div>
