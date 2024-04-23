@@ -6,7 +6,8 @@ import { useProfile } from "@/components/UseProfile";
 import { redirect, useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Link from "next/link";
-import Image from "next/legacy/image";
+// import Image from "next/legacy/image";
+import { Image } from "cloudinary-react";
 import DeleteButton from "@/components/DeleteButton";
 
 const individualCategoryPage = () => {
@@ -15,10 +16,9 @@ const individualCategoryPage = () => {
   const { loading: profileLoading, data: profileData } = useProfile();
   const [editedCategory, setEditedCategory] = useState(null);
   const [category, setCategory] = useState(null);
-
   const [categoryname, setCategoryName] = useState("");
-
   const [menuItems, setMenuItems] = useState([]);
+  let imageURL = "";
 
   useEffect(() => {
     fetch("/api/Categories").then((res) => {
@@ -70,11 +70,11 @@ const individualCategoryPage = () => {
       const response1 = await fetch("/api/Categories?_id=" + _id, {
         method: "DELETE",
       });
-      menuItems.forEach(async menuItem => {
+      menuItems.forEach(async (menuItem) => {
         const response2 = await fetch("/api/menuitems?_id=" + menuItem._id, {
           method: "DELETE",
         });
-        if(response2.ok){
+        if (response2.ok) {
           resolve();
         } else {
           reject();
@@ -125,29 +125,34 @@ const individualCategoryPage = () => {
             <button className="border border-primary" type="submit">
               {editedCategory ? "Update" : "Create"}
             </button>
-            <DeleteButton label={"Delete"} iscategory={true} onDelete={() => handleDeleteClick(category._id)}/>
+            <DeleteButton
+              label={"Delete"}
+              iscategory={true}
+              onDelete={() => handleDeleteClick(category._id)}
+            />
           </div>
         </div>
       </form>
       <div className="grid grid-cols-3 gap-2 mt-8">
         {menuItems?.length > 0 &&
-          menuItems.map((item) => (
-            <Link
-              href={"/menuitems/edit/" + item._id}
-              className="bg-gray-200 rounded-lg p-4 flex flex-col justify-center items-center"
-            >
-              <div className="relative w-24 h-24">
+          menuItems.map((item) => {
+
+            imageURL = item?.imageURL;
+
+            return (
+              <Link
+                href={"/menuitems/edit/" + item._id}
+                className="bg-gray-200 rounded-lg p-4 flex flex-col justify-center items-center"
+              >
                 <Image
-                  src={"/menuimage.png"}
-                  alt={"Menuitem-image"}
-                  width={200}
-                  height={200}
-                  className="rounded-md"
+                  cloudName="duyvi6pzk"
+                  publicId={imageURL}
+                  className="w-20 h-20 rounded-full"
                 />
-              </div>
-              <div className="text-center mt-1">{item.name}</div>
-            </Link>
-          ))}
+                <div className="text-center mt-2">{item.name}</div>
+              </Link>
+            ) 
+          })}
       </div>
     </section>
   );

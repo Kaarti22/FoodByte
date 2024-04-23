@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../AppContext";
 import MenuItemBox from "@/components/Menu/MenuItemBox";
-import Image from "next/legacy/image";
+// import Image from "next/legacy/image";
+import {Image} from "cloudinary-react";
 import FlyingButton from "react-flying-item";
 
 export default function MenuItem(menuItem) {
-  const { name, description, basePrice, sizes, extraIngredientPrices } =
+  const { name, description, basePrice, sizes, extraIngredientPrices, imageURL } =
     menuItem;
 
   const { addToCart } = useContext(CartContext);
@@ -67,12 +68,10 @@ export default function MenuItem(menuItem) {
             >
               <div className="flex justify-center items-center">              
                 <Image
-                src={"/menuimage.png"}
-                alt="name"
-                width={200}
-                height={200}
-                className="mx-auto ml-10"
-              />
+                  cloudName="duyvi6pzk"
+                  publicId={imageURL}
+                  className="w-32 h-32 rounded-full mt-2 overflow-hidden"
+                />
               </div>
               <h2 className="text-lg font-bold text-center mb-2">{name}</h2>
               <p className="text-center text-gray-500 text-sm mb-2">

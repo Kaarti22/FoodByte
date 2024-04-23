@@ -24,6 +24,8 @@ export default function EditMenuItemPage() {
     });
   }, []);
 
+  console.log(menuItem);
+
   async function handleFormSubmit(ev, data) {
     ev.preventDefault();
     data = { ...data, _id: id };

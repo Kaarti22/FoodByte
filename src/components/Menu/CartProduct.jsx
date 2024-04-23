@@ -1,17 +1,17 @@
 import { CartProductPrice } from "../AppContext";
 import Trash from "@/components/Icons/Trash";
-import Image from "next/legacy/image";
+// import Image from "next/legacy/image";
+import {Image} from "cloudinary-react";
 
 export default function CartProduct({ product, onRemove }) {
   return (
     <div className="flex gap-4 border-b py-4 items-center">
       <div className="w-24">
         <Image
-          src={"/menuimage.png"}
-          alt="Product image"
-          width={240}
-          height={240}
-        />
+              cloudName="duyvi6pzk"
+              publicId={product?.imageURL}
+              className="w-16 h-16 rounded-full mt-2 overflow-hidden"
+            />
       </div>
       <div className="grow">
         <h3 className="font-semibold">{product.name}</h3>

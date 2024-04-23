@@ -19,6 +19,7 @@ export default function ProfilePage() {
 
   const router = useRouter();
 
+  console.log(user);
   useEffect(() => {
     if (status === "authenticated") {
     fetch('/api/profile').then((response) => {                                 
@@ -35,6 +36,7 @@ export default function ProfilePage() {
 
   async function handleProfileInfoUpdated(ev, data) {
     ev.preventDefault();
+    console.log(data);
     const savingPromise = new Promise(async (resolve, reject) => {
       const response = await fetch("/api/profile", {
         method: 'PUT',

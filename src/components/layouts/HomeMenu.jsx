@@ -9,11 +9,10 @@ export default function HomeMenu() {
   const [bestSellers, setBestSellers] = useState([]);
 
   useEffect(() => {
-    console.log("setBestSellers");
     fetch("/api/menuitems")
       .then((res) => {
       res.json().then((data)=>{
-        setBestSellers(data)
+        setBestSellers(data.slice(0,6));
       })
         
       });
