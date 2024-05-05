@@ -22,8 +22,8 @@ const Userform = ({ user, onSave }) => {
     if (propName === "city") setCity(value);
     if (propName === "country") setCountry(value);
   };
-  
-  console.log(profileImage);
+
+  // console.log(profileImage);
 
   const uploadImage = async (ev) => {
     const files = ev.target.files;
@@ -45,7 +45,7 @@ const Userform = ({ user, onSave }) => {
   };
 
   return (
-    <div className="flex gap-6">
+    <div className="md:flex gap-6">
       <div className="w-[20%]">
         {!profileImage && (
           <div className="flex items-center justify-center w-full mt-2">
@@ -74,7 +74,12 @@ const Userform = ({ user, onSave }) => {
                   <span>your photo</span>
                 </div>
               </div>
-              <input id="dropzone-file" type="file" className="hidden" onChange={uploadImage}/>
+              <input
+                id="dropzone-file"
+                type="file"
+                className="hidden"
+                onChange={uploadImage}
+              />
             </label>
           </div>
         )}

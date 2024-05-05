@@ -3,7 +3,7 @@ import { CartContext } from "../AppContext";
 import MenuItemBox from "@/components/Menu/MenuItemBox";
 // import Image from "next/legacy/image";
 import {Image} from "cloudinary-react";
-import FlyingButton from "react-flying-item";
+// import FlyingButton from "react-flying-item";
 
 export default function MenuItem(menuItem) {
   const { name, description, basePrice, sizes, extraIngredientPrices, imageURL } =
@@ -88,7 +88,7 @@ export default function MenuItem(menuItem) {
                       <input
                         type="radio"
                         name="size"
-                        onClick={() => setSelectSize(size)}
+                        onChange={() => setSelectSize(size)}
                         checked={selectSize?.name === size.name}
                       />
                       {size.name} ₹{size.price}
@@ -107,7 +107,7 @@ export default function MenuItem(menuItem) {
                       <input
                         type="checkbox"
                         name={extraThing.name}
-                        onClick={(ev) => handleExtras(ev, extraThing)}
+                        onChange={(ev) => handleExtras(ev, extraThing)}
                         checked={selectExtras
                           .map((e) => e._id)
                           .includes(extraThing._id)}
@@ -118,19 +118,15 @@ export default function MenuItem(menuItem) {
                 </div>
               )}
 
-              <div className="flying-button-parent">
-                <FlyingButton
-                  src="/menuimage.png"
-                  targetTop={"5%"}
-                  targetLeft={"77%"}
-                >
-                  <div
+              <div >
+                
+                  <button type="button"
                     className="primary sticky bottom-2"
                     onClick={handleAddToCart}
                   >
                     Add to cart ₹{selectedPrice}
-                  </div>
-                </FlyingButton>
+                  
+                </button>
               </div>
               <button
                 className="mt-2 rounded-full"

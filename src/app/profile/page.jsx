@@ -5,11 +5,10 @@ import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import {UserTabs} from '@/components/layouts/UserTabs';
+import { UserTabs } from "@/components/layouts/UserTabs";
 import UserForm from "@/components/layouts/UserForm";
 
 export default function ProfilePage() {
-
   const session = useSession();
   const [user, setUser] = useState(null);
   const [isadmin, setIsAdmin] = useState(false);
@@ -19,31 +18,30 @@ export default function ProfilePage() {
 
   const router = useRouter();
 
-  console.log(user);
+  // console.log(user);
   useEffect(() => {
     if (status === "authenticated") {
-    fetch('/api/profile').then((response) => {                                 
-      response.json().then((data) => {
-        setUser(data);
-        setIsAdmin(data.admin);
-        setIsOwner(data.owner);
-        setProfileFetched(true);
+      fetch("/api/profile").then((response) => {
+        response.json().then((data) => {
+          setUser(data);
+          setIsAdmin(data.admin);
+          setIsOwner(data.owner);
+          setProfileFetched(true);
+        });
       });
-    });
-  }
+    }
   }, [session, status]);
-
 
   async function handleProfileInfoUpdated(ev, data) {
     ev.preventDefault();
     console.log(data);
     const savingPromise = new Promise(async (resolve, reject) => {
       const response = await fetch("/api/profile", {
-        method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      console.log(response)
+      console.log(response);
       if (response.ok) resolve();
       else reject();
     });
@@ -62,12 +60,11 @@ export default function ProfilePage() {
     return redirect("/login");
   }
 
-
   return (
     <section className="mt-8">
-      <UserTabs isadmin={isadmin} isowner={isowner}/>
+      <UserTabs isadmin={isadmin} isowner={isowner} />
       <div className="max-w-2xl mx-auto mt-8">
-        <UserForm user={user} onSave={handleProfileInfoUpdated}/>
+        <UserForm user={user} onSave={handleProfileInfoUpdated} />
       </div>
     </section>
   );

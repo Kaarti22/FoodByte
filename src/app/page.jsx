@@ -26,7 +26,7 @@ export default function Home() {
           <p>
             With a commitment to excellence and a dedication to customer
             satisfaction, we strive to exceed your expectations with every bite.
-            Our platform is more than just a place to order food; it's a
+            Our platform is more than just a place to order food; its a
             culinary destination where you can explore new tastes, support local
             businesses, and indulge in culinary adventures from the comfort of
             your home.

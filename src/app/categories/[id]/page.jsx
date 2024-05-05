@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect as effect, useState as state} from "react";
 import { UserTabs } from "@/components/layouts/UserTabs";
-import { useProfile } from "@/components/UseProfile";
-import { redirect, useParams, useRouter } from "next/navigation";
+import { useProfile as profile} from "@/components/UseProfile";
+import { redirect, useParams as params, useRouter as router } from "next/navigation";
 import toast from "react-hot-toast";
 import Link from "next/link";
 // import Image from "next/legacy/image";
@@ -11,16 +11,16 @@ import { Image } from "cloudinary-react";
 import DeleteButton from "@/components/DeleteButton";
 
 const individualCategoryPage = () => {
-  const { id } = useParams();
-  const router = useRouter();
-  const { loading: profileLoading, data: profileData } = useProfile();
-  const [editedCategory, setEditedCategory] = useState(null);
-  const [category, setCategory] = useState(null);
-  const [categoryname, setCategoryName] = useState("");
-  const [menuItems, setMenuItems] = useState([]);
+  const { id } = params();
+  const router = router();
+  const { loading: profileLoading, data: profileData } = profile();
+  const [editedCategory, setEditedCategory] = state(null);
+  const [category, setCategory] = state(null);
+  const [categoryname, setCategoryName] = state("");
+  const [menuItems, setMenuItems] = state([]);
   let imageURL = "";
 
-  useEffect(() => {
+  effect(() => {
     fetch("/api/Categories").then((res) => {
       res.json().then((categories) => {
         const category = categories.find((i) => i._id === id);
@@ -141,6 +141,7 @@ const individualCategoryPage = () => {
 
             return (
               <Link
+                key={item._id}
                 href={"/menuitems/edit/" + item._id}
                 className="bg-gray-200 rounded-lg p-4 flex flex-col justify-center items-center"
               >

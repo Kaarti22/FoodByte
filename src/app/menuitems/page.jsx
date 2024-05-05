@@ -43,6 +43,7 @@ export default function MenuItemsPage() {
               imageURL = item?.imageURL;
               return (
                 <Link
+                  key={item._id}
                   href={"menuitems/edit/" + item._id}
                   className="bg-gray-200 rounded-lg p-4 flex flex-col justify-center items-center"
                 >

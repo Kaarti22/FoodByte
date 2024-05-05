@@ -1,4 +1,10 @@
 "use client";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 import SectionHeaders from "@/components/layouts/SectionHeaders";
 import MenuItem from "@/components/Menu/MenuItem";
@@ -27,18 +33,24 @@ const MenuPage = () => {
         categories.map((c) => {
           if (c.name !== "Select Any....") {
             return (
-              <div>
-                <div className="text-center">
-                  <SectionHeaders mainHeader={c.name} />
-                </div>
-                <div className="grid grid-cols-3 gap-4 mt-6 mb-12">
-                  {menuItems
-                    .filter((m) => m.category === c._id)
-                    .map((item) => (
-                      <MenuItem {...item} />
-                    ))}
-                </div>
-              </div>
+              <Accordion key={c._id} type="single" className="mt-2 p-2" collapsible>
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>
+                    <div className="text-center">
+                      <SectionHeaders mainHeader={c.name} />
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="grid sm:grid-cols-3 gap-4 mt-6 mb-12">
+                      {menuItems
+                        .filter((m) => m.category === c._id)
+                        .map((item) => (
+                          <MenuItem {...item} key={item._id}/>
+                        ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             );
           }
         })}

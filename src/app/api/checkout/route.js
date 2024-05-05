@@ -60,11 +60,15 @@ export async function POST(req) {
     line_items: stripeLineItems,
     mode: "payment",
     customer_email: userEmail,
-    success_url: process.env.NEXTAUTH_URL + "orders/" + orderDoc._id.toString() + '?clear-cart=1',
+    success_url:
+      process.env.NEXTAUTH_URL +
+      "orders/" +
+      orderDoc._id.toString() +
+      "?clear-cart=1",
     cancel_url: process.env.NEXTAUTH_URL + "cart?canceled=1",
     metadata: { orderId: orderDoc._id.toString() },
     payment_intent_data: {
-        metadata: { orderId: orderDoc._id.toString() },
+      metadata: { orderId: orderDoc._id.toString() },
     },
     shipping_options: [
       {
@@ -73,11 +77,11 @@ export async function POST(req) {
           type: "fixed_amount",
           fixed_amount: { amount: 500, currency: "INR" },
         },
-      }
+      },
     ],
   });
 
-//   console.log(stripeSession.url);
+  //   console.log(stripeSession.url);
 
   return Response.json(stripeSession.url);
 }

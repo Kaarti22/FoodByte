@@ -8,7 +8,7 @@ import Trash from "@/components/Icons/Trash";
 import AddressInputs from "@/components/layouts/AddressInputs";
 import { useProfile } from "@/components/UseProfile";
 import toast from "react-hot-toast";
-import  CartProduct  from '@/components/menu/CartProduct';
+import CartProduct from "./../../../components/menu/CartProduct";
 
 export default function CartPage() {
   const { cartProducts, removeCartProd } = useContext(CartContext);
@@ -16,9 +16,9 @@ export default function CartPage() {
   const { data: profileData } = useProfile();
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (window.location.href.includes('canceled=1')) {
-        toast.error('Payment failed 😔');
+    if (typeof window !== "undefined") {
+      if (window.location.href.includes("canceled=1")) {
+        toast.error("Payment failed 😔");
       }
     }
   }, []);
@@ -95,7 +95,11 @@ export default function CartPage() {
           {cartProducts?.length === 0 && <div>No products in your cart</div>}
           {cartProducts?.length > 0 &&
             cartProducts.map((product, index) => (
-              <CartProduct product={product} onRemove={removeCartProd}/>
+              <CartProduct
+                key={index}
+                product={product}
+                onRemove={removeCartProd}
+              />
               // <></>
             ))}
           <div className="py-2 pr-16 flex justify-end items-center">
