@@ -4,6 +4,7 @@
 
 section.hero{
     @apply block md:grid;
+    border-color: rgba(59, 130, 246, var(--tw-border-opacity));
     grid-template-columns: .4fr .6fr;
 }
 

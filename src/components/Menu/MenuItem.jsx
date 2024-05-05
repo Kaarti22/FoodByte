@@ -1,13 +1,17 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../AppContext";
 import MenuItemBox from "@/components/Menu/MenuItemBox";
-// import Image from "next/legacy/image";
-import {Image} from "cloudinary-react";
-// import FlyingButton from "react-flying-item";
+import { Image } from "cloudinary-react";
 
 export default function MenuItem(menuItem) {
-  const { name, description, basePrice, sizes, extraIngredientPrices, imageURL } =
-    menuItem;
+  const {
+    name,
+    description,
+    basePrice,
+    sizes,
+    extraIngredientPrices,
+    imageURL,
+  } = menuItem;
 
   const { addToCart } = useContext(CartContext);
 
@@ -66,7 +70,7 @@ export default function MenuItem(menuItem) {
               className="overflow-y-scroll p-2"
               style={{ maxHeight: "calc(100vh - 100px)" }}
             >
-              <div className="flex justify-center items-center">              
+              <div className="flex justify-center items-center">
                 <Image
                   cloudName="duyvi6pzk"
                   publicId={imageURL}
@@ -118,14 +122,13 @@ export default function MenuItem(menuItem) {
                 </div>
               )}
 
-              <div >
-                
-                  <button type="button"
-                    className="primary sticky bottom-2"
-                    onClick={handleAddToCart}
-                  >
-                    Add to cart ₹{selectedPrice}
-                  
+              <div>
+                <button
+                  type="button"
+                  className="primary sticky bottom-2 hover:bg-blue-400"
+                  onClick={handleAddToCart}
+                >
+                  Add to cart ₹{selectedPrice}
                 </button>
               </div>
               <button

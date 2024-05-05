@@ -1,4 +1,3 @@
-import Header from "@/components/layouts/Header";
 import Hero from "@/components/layouts/Hero";
 import HomeMenu from "@/components/layouts/HomeMenu";
 import SectionHeaders from "@/components/layouts/SectionHeaders";
@@ -9,8 +8,8 @@ export default function Home() {
       <Hero />
       <HomeMenu />
       <section className="text-center my-16" id="about">
-        <SectionHeaders  mainHeader={"About Us"} subHeader={"Our Story"}/>
-        <div className="max-w-md mx-auto mt-4 flex flex-col gap-4 text-gray-500">
+        <SectionHeaders mainHeader={"About Us"} subHeader={"Our Story"} />
+        <div className="max-w-xl mx-auto mt-4 flex flex-col gap-4 text-gray-500">
           <p>
             Welcome to FOOD BYTE, where culinary passion meets technological
             innovation! As fervent foodies ourselves, we embarked on a mission
@@ -26,8 +25,8 @@ export default function Home() {
           <p>
             With a commitment to excellence and a dedication to customer
             satisfaction, we strive to exceed your expectations with every bite.
-            Our platform is more than just a place to order food; its a
-            culinary destination where you can explore new tastes, support local
+            Our platform is more than just a place to order food; its a culinary
+            destination where you can explore new tastes, support local
             businesses, and indulge in culinary adventures from the comfort of
             your home.
           </p>

@@ -1,15 +1,15 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import SectionHeaders from "./../../../components/layouts/SectionHeaders";
-import AddressInputs from "./../../../components/layouts/AddressInputs";
+import SectionHeaders from "@/components/layouts/SectionHeaders";
+import AddressInputs from "@/components/layouts/AddressInputs";
 import {
   CartContext,
   CartProductPrice,
-} from "./../../../components/AppContext";
-import CartProduct from "./../../../components/menu/CartProduct";
+} from "@/components/AppContext";
+import CartProduct from "@/components/menu/CartProduct";
 
-export default function OrderPage() {
+export default function OrderPage(check) {
   const { clearCart } = useContext(CartContext);
   const [order, setOrder] = useState();
   const [loadingOrder, setLoadingOrder] = useState(true);
@@ -23,9 +23,7 @@ export default function OrderPage() {
     if (id) {
       setLoadingOrder(true);
       fetch("/api/orders?_id=" + id).then((res) => {
-        // console.log("Result", res);
         res.json().then((orderData) => {
-        //   console.log("Order Data", orderData);
           setOrder(orderData);
           setLoadingOrder(false);
         });
@@ -59,15 +57,15 @@ export default function OrderPage() {
             <div className="text-right py-2 text-gray-500">
               Subtotal:
               <span className="text-black font-bold inline-block w-8">
-                ${subtotal}
+                ₹{subtotal}
               </span>
               <br />
               Delivery:
-              <span className="text-black font-bold inline-block w-8">$5</span>
+              <span className="text-black font-bold inline-block w-8">₹5</span>
               <br />
               Total:
               <span className="text-black font-bold inline-block w-8">
-                ${subtotal + 5}
+                ₹{subtotal + 5}
               </span>
             </div>
           </div>

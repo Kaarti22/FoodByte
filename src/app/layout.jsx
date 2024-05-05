@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
-        <main className="max-w-4xl mx-auto border p-4 shadow-2xl">
+        <main className="max-w-6xl mx-auto border p-4 shadow-2xl">
           <AppProvider>
             <Toaster />
             <Header />

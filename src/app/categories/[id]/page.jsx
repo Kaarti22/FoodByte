@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect as effect, useState as state} from "react";
+import { useEffect , useState } from "react";
 import { UserTabs } from "@/components/layouts/UserTabs";
 import { useProfile as profile} from "@/components/UseProfile";
-import { redirect, useParams as params, useRouter as router } from "next/navigation";
+import { redirect, useParams , useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Link from "next/link";
 // import Image from "next/legacy/image";
@@ -11,16 +11,16 @@ import { Image } from "cloudinary-react";
 import DeleteButton from "@/components/DeleteButton";
 
 const individualCategoryPage = () => {
-  const { id } = params();
-  const router = router();
+  const { id } = useParams();
+  const router = useRouter();
   const { loading: profileLoading, data: profileData } = profile();
-  const [editedCategory, setEditedCategory] = state(null);
-  const [category, setCategory] = state(null);
-  const [categoryname, setCategoryName] = state("");
-  const [menuItems, setMenuItems] = state([]);
+  const [editedCategory, setEditedCategory] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [categoryname, setCategoryName] = useState("");
+  const [menuItems, setMenuItems] = useState([]);
   let imageURL = "";
 
-  effect(() => {
+  useEffect(() => {
     fetch("/api/Categories").then((res) => {
       res.json().then((categories) => {
         const category = categories.find((i) => i._id === id);

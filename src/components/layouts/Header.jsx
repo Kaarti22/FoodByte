@@ -5,23 +5,55 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../AppContext";
 import ShoppingCart from "@/components/Icons/ShoppingCart";
 import Bars2 from "./../Icons/Bars2";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 function AuthLinks({ status, userName }) {
+  const router = useRouter();
   if (status === "authenticated") {
     return (
-      <main className="max-md:flex-col flex gap-2 items-center">
-        <Link
-          href={"/profile"}
-          className="whitespace-nowrap hover:bg-slate-200 px-4 py-2 rounded-full"
-        >
-          Hello, {userName}
-        </Link>
-        <button
-          onClick={() => signOut()}
-          className="bg-primary rounded-full text-white px-8 py-2 hover:bg-blue-400"
-        >
-          Logout
-        </button>
+      <main className="">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="border-none">
+            <Image
+              src={"/loginAvatar.png"}
+              height={40}
+              width={40}
+              alt="login"
+            />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="z-10 bg-white">
+            <DropdownMenuItem>
+              <Link
+                href={"/profile"}
+                className="whitespace-nowrap bg-slate-200 hover:bg-slate-400 px-4 py-2 rounded-full"
+              >
+                Hello, {userName}
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator className="bg-blue-500 h-[2px]" />
+            <DropdownMenuItem>
+              <button
+                onClick={() => {
+                  signOut({ callbackUrl: "/" });
+                }}
+                className="bg-primary rounded-full text-white px-8 py-2 hover:bg-blue-400"
+              >
+                Logout
+              </button>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </main>
     );
   }
@@ -29,18 +61,38 @@ function AuthLinks({ status, userName }) {
   if (status !== "authenticated") {
     return (
       <main className="flex gap-2 items-center">
-        <Link
-          href={"/login"}
-          className="hover:bg-slate-200 px-4 py-2 rounded-full"
-        >
-          Login
-        </Link>
-        <Link
-          href={"/register"}
-          className="bg-primary rounded-full text-white px-8 py-2 hover:bg-blue-400"
-        >
-          Register
-        </Link>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="border-none">
+            <Image
+              src={"/loginAvatar.png"}
+              height={40}
+              width={40}
+              alt="login"
+            />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="z-10 bg-white">
+            <DropdownMenuItem>
+              <button
+                type="button"
+                onClick={() => signIn("google", { callbackUrl: "/" })}
+                className="flex gap-4 justify-center hover:bg-slate-200"
+              >
+                <Image src={"/google.png"} alt={""} width={24} height={24} />
+                Login
+              </button>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator className="bg-blue-500 h-[2px]" />
+            <DropdownMenuItem>
+              <button
+                onClick={() => signIn("google", { callbackUrl: "/" })}
+                className="flex gap-4 justify-center hover:bg-slate-200"
+              >
+                <Image src={"/google.png"} alt={""} width={24} height={24} />
+                Register
+              </button>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </main>
     );
   }
@@ -74,9 +126,9 @@ export default function Header() {
 
   return (
     <header className="">
-      <div className="flex block items-center md:hidden justify-between">
+      <div className="flex items-center md:hidden justify-between">
         <Link className="text-primary font-semibold text-2xl" href={"/"}>
-          FOOD BYTE
+          <Image src={"/logo.png"} width={200} height={200} />
         </Link>
         <div className="flex gap-8 items-center">
           <Link href={"/cart"} className="relative">
@@ -96,9 +148,10 @@ export default function Header() {
         </div>
       </div>
       {mobileNavOpen && (
-        <div 
-          className="md:hidden p-4 bg-gray-200 rounded-lg mt-2 flex flex-col gap-2 text-center"  
-          onClick={() => setMobileNavOpen(false)}>
+        <div
+          className="md:hidden p-4 bg-gray-200 rounded-lg mt-2 flex flex-col gap-2 text-center"
+          onClick={() => setMobileNavOpen(false)}
+        >
           <Link
             href={"/menu"}
             className="hover:bg-slate-200 rounded-full py-2 px-4"
@@ -131,7 +184,7 @@ export default function Header() {
       <div className="hidden md:flex items-center justify-between">
         <nav className="flex items-center gap-2 text-gray-500 font-semibold">
           <Link className="text-primary font-semibold text-2xl" href={"/"}>
-            FOOD BYTE
+            <Image src={"/logo.png"} width={200} height={200} />
           </Link>
           <Link
             href={"/menu"}

@@ -8,7 +8,7 @@ import Trash from "@/components/Icons/Trash";
 import AddressInputs from "@/components/layouts/AddressInputs";
 import { useProfile } from "@/components/UseProfile";
 import toast from "react-hot-toast";
-import CartProduct from "./../../../components/menu/CartProduct";
+import CartProduct from "@/components/menu/CartProduct";
 
 export default function CartPage() {
   const { cartProducts, removeCartProd } = useContext(CartContext);
@@ -97,6 +97,7 @@ export default function CartPage() {
             cartProducts.map((product, index) => (
               <CartProduct
                 key={index}
+                index={index}
                 product={product}
                 onRemove={removeCartProd}
               />

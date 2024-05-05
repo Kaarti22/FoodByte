@@ -1,9 +1,8 @@
 import { CartProductPrice } from "../AppContext";
 import Trash from "@/components/Icons/Trash";
-// import Image from "next/legacy/image";
 import {Image} from "cloudinary-react";
 
-export default function CartProduct({ product, onRemove }) {
+export default function CartProduct({index, product, onRemove }) {
   return (
     <div className="flex gap-4 border-b py-4 items-center">
       <div className="w-24">

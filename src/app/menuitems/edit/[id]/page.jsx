@@ -86,12 +86,7 @@ export default function EditMenuItemPage() {
           <span>Show All Menu Items</span>
         </Link>
       </div>
-      <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit} />
-      <div className="max-w-2xl mt-2">
-        <div className="max-w-2xl ml-96 pl-4">
-          <DeleteButton label={"Delete this menu item"} onDelete={handleDeleteClick}/>
-        </div>
-      </div>
+      <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit} handleDeleteClick={handleDeleteClick} />
     </section>
   );
 }

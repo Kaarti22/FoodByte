@@ -1,21 +1,20 @@
-// import FlyingButton from "react-flying-item";
-
 const AddToCartButton = ({ hasSizesOrExtras, onClick, basePrice }) => {
   if (!hasSizesOrExtras) {
     return (
-      // <div className="flying-button-parent mt-4">
-      //   <FlyingButton targetTop={"5%"} targetLeft={"77%"} src="/menuimage.png">
-          <button type="button" className="mt-4 bg-primary text-white rounded-full px-4 py-2" onClick={onClick}>Add to cart ₹{basePrice}</button>
-        // </FlyingButton>
-      // </div>
-      
+      <button
+        type="button"
+        className="mt-4 bg-primary text-white rounded-full px-4 py-2 hover:bg-blue-400"
+        onClick={onClick}
+      >
+        Add to cart ₹{basePrice}
+      </button>
     );
   }
   return (
     <button
       type="button"
       onClick={onClick}
-      className="mt-4 bg-primary text-white rounded-full px-4 py-2"
+      className="mt-4 bg-primary text-white rounded-full px-4 py-2 hover:bg-blue-400"
     >
       <span>Add to Cart (From ₹{basePrice})</span>
     </button>

@@ -36,7 +36,7 @@ const DeleteButton = ({ label, onDelete, iscategory }) => {
   }
 
   return (
-    <button type="button" onClick={() => setShowConfirm(true)}>
+    <button type="button" onClick={() => setShowConfirm(true)} className="hover:bg-slate-200">
       {label}
     </button>
   );

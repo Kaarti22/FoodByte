@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-// import Image from "next/legacy/image";
 import {Image} from "cloudinary-react";
 import MenuItemPriceProperties from "@/components/layouts/MenuItemPriceProperties";
+import DeleteButton from "../DeleteButton";
 
-export default function MenuItemForm({ onSubmit, menuItem }) {
+export default function MenuItemForm({ onSubmit, menuItem, handleDeleteClick }) {
   const [name, setName] = useState(menuItem?.name || "");
   const [description, setDescription] = useState(menuItem?.description || "");
   const [basePrice, setBasePrice] = useState(menuItem?.basePrice || "");
@@ -136,20 +136,10 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
             props={extraIngredientPrices}
             setProps={setExtraIngredientPrices}
           />
-          <button type="submit">Save</button>
+          <button type="submit" className="mb-2 hover:bg-blue-400">Save</button>
+          <DeleteButton label={"Delete this menu item"} onDelete={handleDeleteClick}/>
         </div>
       </div>
     </form>
   );
-}
-
-// const MenuItemForm = ({ onSubmit, menuItem }) => {
-//   return (
-//     <div>
-//       <h1>Image Upload</h1>
-//       <ImageUpload/>
-//     </div>
-//   )
-// };
-
-// export default MenuItemForm;
+};

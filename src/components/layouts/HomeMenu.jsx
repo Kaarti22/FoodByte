@@ -4,6 +4,7 @@ import Image from "next/legacy/image";
 import MenuItem from "../Menu/MenuItem";
 import SectionHeaders from "./SectionHeaders";
 import { useEffect, useState } from "react";
+import BestSellers from "@/components/layouts/BestSellers";
 
 export default function HomeMenu() {
   const [bestSellers, setBestSellers] = useState([]);
@@ -24,10 +25,7 @@ export default function HomeMenu() {
           mainHeader={"Our Best Sellers"}
         />
       </div>
-      <div className="grid sm:grid-cols-3 gap-4">
-        {bestSellers?.length > 0 &&
-          bestSellers.map((item, k) => <MenuItem {...item} key={item._id} />)}
-      </div>
+      <BestSellers/>
     </section>
   );
 }

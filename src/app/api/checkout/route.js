@@ -59,7 +59,7 @@ export async function POST(req) {
   const stripeSession = await stripe.checkout.sessions.create({
     line_items: stripeLineItems,
     mode: "payment",
-    customer_email: userEmail,
+    customer_email: Email,
     success_url:
       process.env.NEXTAUTH_URL +
       "orders/" +
@@ -80,8 +80,6 @@ export async function POST(req) {
       },
     ],
   });
-
-  //   console.log(stripeSession.url);
 
   return Response.json(stripeSession.url);
 }

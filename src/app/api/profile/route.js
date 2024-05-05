@@ -9,6 +9,7 @@ export async function PUT(req) {
   const data = await req.json();
   const { _id, name, ...otherUserinfo } = data;
 
+  let email;
   let filter = {};
   if (_id) {
     filter = { _id };

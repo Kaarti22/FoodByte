@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import UpdateAdmin from "@/components/UpdateAdmin";
+import SectionHeaders from "@/components/layouts/SectionHeaders";
 
 const ManagersPage = () => {
   const router = useRouter();
@@ -31,6 +32,7 @@ const ManagersPage = () => {
   const handleAdmin = async (ev, userToEdit) => {
     ev.preventDefault();
     userToEdit.admin = !userToEdit.admin;
+    userToEdit.owner = !userToEdit.owner;
     const savingPromise = new Promise(async (resolve, reject) => {
       const response = await fetch("/api/users", {
         method: "PUT",
@@ -50,13 +52,18 @@ const ManagersPage = () => {
 
   return (
     <div className="mt-8">
-      <h1>Managers</h1>
+      <div className="text-center mb-4">
+        <SectionHeaders
+          subHeader={""}
+          mainHeader={"Managers"}
+        />
+      </div>
       <div className="mt-8">
         {users?.length > 0 &&
           users.map((user) => (
             <div key={user._id} className="bg-gray-100 rounded-lg mb-2 p-3 px-10 flex items-center gap-4 justify-between">
               <span className="text-gray-500">{user.email}</span>
-              <div>
+              <div className="flex items-center justify-center">
                 <UpdateAdmin label={user.admin ? "Manager" : "User"} onUpdate={handleAdmin} user={user}/>
               </div>
             </div>

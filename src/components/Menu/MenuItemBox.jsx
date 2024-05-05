@@ -12,7 +12,7 @@ const MenuItemBox = ({onAddToCart, ...item}) => {
         className="bg-gray-200 p-4 rounded-lg text-center group 
         hover:bg-white hover:shadow-md hover:shadow-black/40 transition-all"
       >
-        <div className="text-center">
+        <div className="flex items-center justify-center">
           <Image
               cloudName="duyvi6pzk"
               publicId={imageURL}

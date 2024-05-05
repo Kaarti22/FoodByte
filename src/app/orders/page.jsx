@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { dbTimeForHuman } from "./../../libs/timedate";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -15,6 +16,8 @@ export default function OrdersPage() {
   const [profileFetched, setProfileFetched] = useState(false);
   const [loadingOrder, setLoadingOrder] = useState(true);
   const { status } = session;
+
+  const router = useRouter();
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -80,9 +83,9 @@ export default function OrdersPage() {
                 </div>
               </div>
               <div className="justify-end flex gap-4 items-center text-sm text-black whitespace-nowrap">
-                <Link href={"/orders/" + order._id} className="button">
-                  show more
-                </Link>
+                <button onClick={() => router.push(`/orders/${order._id}`)}>
+                    Show more
+                </button>
               </div>
             </div>
           ))}
