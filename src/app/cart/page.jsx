@@ -18,7 +18,7 @@ export default function CartPage() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (window.location.href.includes("canceled=1")) {
-        toast.error("Payment failed 😔");
+        toast.error("Payment failed 😔", {id: 11});
       }
     }
   }, []);
@@ -43,6 +43,10 @@ export default function CartPage() {
 
   async function proceedToCheckout(ev) {
     ev.preventDefault();
+    if(profileData.email === undefined){
+      toast.error("Please login to checkout");
+      return;
+    }
     const promise = new Promise((resolve, reject) => {
       fetch("/api/checkout", {
         method: "POST",

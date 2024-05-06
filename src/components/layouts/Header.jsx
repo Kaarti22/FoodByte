@@ -6,20 +6,17 @@ import { CartContext } from "../AppContext";
 import ShoppingCart from "@/components/Icons/ShoppingCart";
 import Bars2 from "./../Icons/Bars2";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 function AuthLinks({ status, userName }) {
-  const router = useRouter();
   if (status === "authenticated") {
     return (
       <main className="">
@@ -62,7 +59,8 @@ function AuthLinks({ status, userName }) {
     return (
       <main className="flex gap-2 items-center">
         <DropdownMenu>
-          <DropdownMenuTrigger className="border-none">
+          <DropdownMenuTrigger className="border-none gap-2 flex items-center justify-center">
+            Login
             <Image
               src={"/loginAvatar.png"}
               height={40}
@@ -74,7 +72,7 @@ function AuthLinks({ status, userName }) {
             <DropdownMenuItem>
               <button
                 type="button"
-                onClick={() => signIn("google", { callbackUrl: "/" })}
+                onClick={() => signIn("google", { callbackUrl: "/profile" })}
                 className="flex gap-4 justify-center hover:bg-slate-200"
               >
                 <Image src={"/google.png"} alt={""} width={24} height={24} />
@@ -84,7 +82,7 @@ function AuthLinks({ status, userName }) {
             <DropdownMenuSeparator className="bg-blue-500 h-[2px]" />
             <DropdownMenuItem>
               <button
-                onClick={() => signIn("google", { callbackUrl: "/" })}
+                onClick={() => signIn("google", { callbackUrl: "/profile" })}
                 className="flex gap-4 justify-center hover:bg-slate-200"
               >
                 <Image src={"/google.png"} alt={""} width={24} height={24} />
@@ -128,7 +126,7 @@ export default function Header() {
     <header className="">
       <div className="flex items-center md:hidden justify-between">
         <Link className="text-primary font-semibold text-2xl" href={"/"}>
-          <Image src={"/logo.png"} width={200} height={200} />
+          <Image src={"/logo.png"} width={200} height={200} alt="logo" priority="true"/>
         </Link>
         <div className="flex gap-8 items-center">
           <Link href={"/cart"} className="relative">
@@ -184,7 +182,7 @@ export default function Header() {
       <div className="hidden md:flex items-center justify-between">
         <nav className="flex items-center gap-2 text-gray-500 font-semibold">
           <Link className="text-primary font-semibold text-2xl" href={"/"}>
-            <Image src={"/logo.png"} width={200} height={200} />
+            <Image src={"/logo.png"} width={200} height={200} alt="logo" priority="true"/>
           </Link>
           <Link
             href={"/menu"}

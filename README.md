@@ -1,5 +1,9 @@
-# npm i
+`npm i`
 
-## Setup ENV variables
+Set up ENV
 
-[Go to the link](http://localhost:3000)
+`npm run dev`
+
+Set Up Stripe Webhook & Run the server locally
+
+Go to the [link](http://localhost:3000)
