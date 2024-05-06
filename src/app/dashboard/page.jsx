@@ -32,7 +32,6 @@ const ManagersPage = () => {
   const handleAdmin = async (ev, userToEdit) => {
     ev.preventDefault();
     userToEdit.admin = !userToEdit.admin;
-    userToEdit.owner = !userToEdit.owner;
     const savingPromise = new Promise(async (resolve, reject) => {
       const response = await fetch("/api/users", {
         method: "PUT",
