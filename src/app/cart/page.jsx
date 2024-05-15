@@ -8,7 +8,7 @@ import Trash from "@/components/Icons/Trash";
 import AddressInputs from "@/components/layouts/AddressInputs";
 import { useProfile } from "@/components/UseProfile";
 import toast from "react-hot-toast";
-import CartProduct from "@/components/menu/CartProduct";
+import CartProduct from "@/components/Menu/CartProduct";
 
 export default function CartPage() {
   const { cartProducts, removeCartProd } = useContext(CartContext);
@@ -18,7 +18,7 @@ export default function CartPage() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (window.location.href.includes("canceled=1")) {
-        toast.error("Payment failed 😔", {id: 11});
+        toast.error("Payment failed 😔", { id: 11 });
       }
     }
   }, []);
@@ -43,7 +43,7 @@ export default function CartPage() {
 
   async function proceedToCheckout(ev) {
     ev.preventDefault();
-    if(profileData.email === undefined){
+    if (profileData.email === undefined) {
       toast.error("Please login to checkout");
       return;
     }
@@ -94,7 +94,7 @@ export default function CartPage() {
           subHeader={"Order within seconds"}
         />
       </div>
-      <div className="mt-8 grid grid-cols-2 gap-8">
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           {cartProducts?.length === 0 && <div>No products in your cart</div>}
           {cartProducts?.length > 0 &&
@@ -105,9 +105,8 @@ export default function CartPage() {
                 product={product}
                 onRemove={removeCartProd}
               />
-              // <></>
             ))}
-          <div className="py-2 pr-16 flex justify-end items-center">
+          <div className="py-2 pr-16 flex justify-between items-center md:justify-end">
             <div className="text-gray-500">
               Subtotal:
               <br />
@@ -123,14 +122,21 @@ export default function CartPage() {
             </div>
           </div>
         </div>
-        <div className="bg-gray-100 p-4 rounded-lg flex flex-col items-center">
-          <h2 className="text-blue-600 font-semibold text-lg">Checkout</h2>
-          <form onSubmit={proceedToCheckout}>
+        <div className="bg-gray-100 p-4 rounded-lg">
+          <h2 className="text-blue-600 font-semibold text-lg text-center md:text-left">
+            Checkout
+          </h2>
+          <form className="mt-4 md:mt-0" onSubmit={proceedToCheckout}>
             <AddressInputs
               addressProp={address}
               setAddressProp={handleAddressChange}
             />
-            <button type="submit">Pay ₹{subtotal + 5}</button>
+            <button
+              type="submit"
+              className="block w-full md:w-auto bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 mt-4"
+            >
+              Pay ₹{subtotal + 5}
+            </button>
           </form>
         </div>
       </div>

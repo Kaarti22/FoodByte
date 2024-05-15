@@ -7,7 +7,7 @@ import {
   CartContext,
   CartProductPrice,
 } from "@/components/AppContext";
-import CartProduct from "@/components/menu/CartProduct";
+import CartProduct from "@/components/Menu/CartProduct";
 
 export default function OrderPage(check) {
   const { clearCart } = useContext(CartContext);
@@ -52,7 +52,7 @@ export default function OrderPage(check) {
         <div className="grid md:grid-cols-2 md:gap-16">
           <div>
             {order.cartProducts.map((product) => (
-              <CartProduct key={product._id} product={product} />
+              <CartProduct key={product._id} product={product}/>
             ))}
             <div className="text-right py-2 text-gray-500">
               Subtotal:

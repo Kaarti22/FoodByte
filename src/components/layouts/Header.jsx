@@ -73,20 +73,24 @@ function AuthLinks({ status, userName }) {
               <button
                 type="button"
                 onClick={() => signIn("google", { callbackUrl: "/profile" })}
-                className="flex gap-4 justify-center hover:bg-slate-200"
+                className="block w-full text-left hover:bg-slate-200 px-4 py-2"
               >
-                <Image src={"/google.png"} alt={""} width={24} height={24} />
-                Login
+                <div className="flex items-center">
+                  <Image src={"/google.png"} alt={""} width={24} height={24} priority={true}/>
+                  <span className="ml-2">Login</span>
+                </div>
               </button>
             </DropdownMenuItem>
             <DropdownMenuSeparator className="bg-blue-500 h-[2px]" />
             <DropdownMenuItem>
               <button
                 onClick={() => signIn("google", { callbackUrl: "/profile" })}
-                className="flex gap-4 justify-center hover:bg-slate-200"
+                className="block w-full text-left hover:bg-slate-200 px-4 py-2"
               >
-                <Image src={"/google.png"} alt={""} width={24} height={24} />
-                Register
+                <div className="flex items-center">
+                  <Image src={"/google.png"} alt={""} width={24} height={24} priority={true}/>
+                  <span className="ml-2">Register</span>
+                </div>
               </button>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -124,11 +128,56 @@ export default function Header() {
 
   return (
     <header className="">
-      <div className="flex items-center md:hidden justify-between">
+      <div className="flex items-center justify-between">
         <Link className="text-primary font-semibold text-2xl" href={"/"}>
-          <Image src={"/logo.png"} width={200} height={200} alt="logo" priority="true"/>
+          <Image
+            src={"/logo.png"}
+            width={200}
+            height={200}
+            alt="logo"
+            priority="true"
+          />
         </Link>
-        <div className="flex gap-8 items-center">
+        <div className="hidden md:flex items-center gap-4">
+          <nav className="flex items-center gap-2 text-gray-500 font-semibold">
+            <Link
+              href={"/menu"}
+              className="hover:bg-slate-200 rounded-full py-2 px-4"
+            >
+              Menu
+            </Link>
+            <Link
+              href={"/#about"}
+              className="hover:bg-slate-200 rounded-full py-2 px-4"
+            >
+              About
+            </Link>
+            <Link
+              href={"/#contact"}
+              className="hover:bg-slate-200 rounded-full py-2 px-4"
+            >
+              Contact
+            </Link>
+            {isOwner && (
+              <Link
+                href={"/dashboard"}
+                className="hover:bg-slate-200 rounded-full py-2 px-4"
+              >
+                Dashboard
+              </Link>
+            )}
+          </nav>
+          <AuthLinks status={status} userName={userName} />
+          <Link href={"/cart"} className="relative">
+            <ShoppingCart />
+            {cartProducts.length > 0 && (
+              <span className="absolute -top-2 -right-4 bg-primary text-white text-xs p-1 rounded-full leading-3">
+                {cartProducts.length}
+              </span>
+            )}
+          </Link>
+        </div>
+        <div className="flex md:hidden gap-8 items-center">
           <Link href={"/cart"} className="relative">
             <ShoppingCart />
             {cartProducts.length > 0 && (
@@ -179,50 +228,6 @@ export default function Header() {
           <AuthLinks status={status} userName={userName} />
         </div>
       )}
-      <div className="hidden md:flex items-center justify-between">
-        <nav className="flex items-center gap-2 text-gray-500 font-semibold">
-          <Link className="text-primary font-semibold text-2xl" href={"/"}>
-            <Image src={"/logo.png"} width={200} height={200} alt="logo" priority="true"/>
-          </Link>
-          <Link
-            href={"/menu"}
-            className="hover:bg-slate-200 rounded-full py-2 px-4"
-          >
-            Menu
-          </Link>
-          <Link
-            href={"/#about"}
-            className="hover:bg-slate-200 rounded-full py-2 px-4"
-          >
-            About
-          </Link>
-          <Link
-            href={"/#contact"}
-            className="hover:bg-slate-200 rounded-full py-2 px-4"
-          >
-            Contact
-          </Link>
-        </nav>
-        <nav className="flex items-center gap-4 text-gray-500 font-semibold">
-          {isOwner && (
-            <Link
-              href={"/dashboard"}
-              className="hover:bg-slate-200 rounded-full py-2 px-4"
-            >
-              Dashboard
-            </Link>
-          )}
-          <AuthLinks status={status} userName={userName} />
-          <Link href={"/cart"} className="relative">
-            <ShoppingCart />
-            {cartProducts.length > 0 && (
-              <span className="absolute -top-2 -right-4 bg-primary text-white text-xs p-1 rounded-full leading-3">
-                {cartProducts.length}
-              </span>
-            )}
-          </Link>
-        </nav>
-      </div>
     </header>
   );
 }

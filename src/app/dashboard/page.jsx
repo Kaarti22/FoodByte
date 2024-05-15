@@ -10,15 +10,14 @@ import SectionHeaders from "@/components/layouts/SectionHeaders";
 const ManagersPage = () => {
   const router = useRouter();
   const [users, setUsers] = useState([]);
-
-  let { loading, data } = useProfile();
+  const { loading, data } = useProfile();
 
   useEffect(() => {
-    fetch("/api/users").then((res) => {
-      res.json().then((users) => {
+    fetch("/api/users")
+      .then((res) => res.json())
+      .then((users) => {
         setUsers(users);
       });
-    });
   }, []);
 
   if (loading) {
@@ -52,18 +51,24 @@ const ManagersPage = () => {
   return (
     <div className="mt-8">
       <div className="text-center mb-4">
-        <SectionHeaders
-          subHeader={""}
-          mainHeader={"Managers"}
-        />
+        <SectionHeaders subHeader={""} mainHeader={"Managers"} />
       </div>
       <div className="mt-8">
         {users?.length > 0 &&
           users.map((user) => (
-            <div key={user._id} className="bg-gray-100 rounded-lg mb-2 p-3 px-10 flex items-center gap-4 justify-between">
-              <span className="text-gray-500">{user.email}</span>
+            <div
+              key={user._id}
+              className="bg-gray-100 rounded-lg mb-2 p-3 px-6 md:px-10 flex flex-col md:flex-row items-center justify-between"
+            >
+              <span className="text-gray-500 mb-2 md:mb-0">
+                {user.email}
+              </span>
               <div className="flex items-center justify-center">
-                <UpdateAdmin label={user.admin ? "Manager" : "User"} onUpdate={handleAdmin} user={user}/>
+                <UpdateAdmin
+                  label={user.admin ? "Manager" : "User"}
+                  onUpdate={handleAdmin}
+                  user={user}
+                />
               </div>
             </div>
           ))}
